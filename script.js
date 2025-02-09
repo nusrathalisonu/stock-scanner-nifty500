@@ -36,17 +36,22 @@ async function getStockData(symbol) {
     try {
         const response = await fetch(url);
         const data = await response.json();
+        
+        console.log('API Response:', data); // Log the response for debugging
+        
         if (data["Time Series (5min)"]) {
             const latestTime = Object.keys(data["Time Series (5min)"])[0];
             const latestData = data["Time Series (5min)"][latestTime];
             return { price: parseFloat(latestData["4. close"]) };
         } else {
-            alert('Stock symbol not found or API error.');
+            // If no data found for the symbol, log a more descriptive error
+            console.error('No stock data found for symbol:', symbol);
+            alert('Stock symbol not found. Please try again.');
             return null;
         }
     } catch (error) {
         console.error('Error fetching stock data:', error);
-        alert('Error fetching stock data.');
+        alert('Error fetching stock data. Please check the API or your internet connection.');
         return null;
     }
 }
