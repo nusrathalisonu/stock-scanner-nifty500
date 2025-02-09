@@ -11,6 +11,12 @@ addStockBtn.addEventListener('click', async () => {
     const entryPrice = parseFloat(entryPriceInput.value);
 
     if (symbol && entryPrice) {
+        // For Indian stocks, check if the symbol contains ".BO" or ".NS" suffix
+        if (isIndianStock(symbol) && !symbol.includes('.BO') && !symbol.includes('.NS')) {
+            alert('For Indian stocks, please add ".BO" or ".NS" at the end of the stock symbol (e.g., RELIANCE.BO or INFY.NS).');
+            return;
+        }
+
         const stockData = await getStockData(symbol);
         if (stockData) {
             const stock = {
@@ -29,6 +35,11 @@ addStockBtn.addEventListener('click', async () => {
     stockSymbolInput.value = '';
     entryPriceInput.value = '';
 });
+
+// Function to check if the stock is an Indian stock
+function isIndianStock(symbol) {
+    return symbol.endsWith('.BO') || symbol.endsWith('.NS');
+}
 
 // Function to fetch stock data from Alpha Vantage
 async function getStockData(symbol) {
