@@ -1,10 +1,10 @@
 // Your API key for Alpha Vantage
 const apiKey = 'C7PVP7K2IP2ZKGI3';  // Your actual API key
 
-// Fetching stock data
+// Fetching stock data for a single stock (e.g., RELIANCE.NS)
 async function getStockData() {
-    // Fetch stock data for Nifty 500 with 30-minute intervals
-    const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=NIFTY500&interval=30min&apikey=${apiKey}`);
+    // Fetch stock data for RELIANCE.NS with 30-minute intervals
+    const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=RELIANCE.NS&interval=30min&apikey=${apiKey}`);
     const data = await response.json();
 
     console.log(data);  // Log the response to check the data format
