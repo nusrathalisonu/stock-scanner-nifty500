@@ -4,12 +4,16 @@ const apiKey = 'C7PVP7K2IP2ZKGI3';  // Your actual API key
 // Fetching stock data for RELIANCE.NS
 async function getStockData() {
     try {
+        console.log('Fetching stock data...');
+
         // Fetch stock data for RELIANCE.NS with 30-minute intervals
         const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=RELIANCE.NS&interval=30min&apikey=${apiKey}`);
-
+        
         // Check if the response was successful (status code 200)
         if (!response.ok) {
-            throw new Error('Failed to fetch data');
+            console.error('Failed to fetch data:', response.statusText);
+            alert('Error fetching data from Alpha Vantage.');
+            return;
         }
 
         const data = await response.json();
