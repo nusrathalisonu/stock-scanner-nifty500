@@ -17,6 +17,8 @@ addStockBtn.addEventListener('click', async () => {
             return;
         }
 
+        console.log('Fetching data for:', symbol); // Debugging step
+
         const stockData = await getStockData(symbol);
         if (stockData) {
             const stock = {
@@ -55,7 +57,6 @@ async function getStockData(symbol) {
             const latestData = data["Time Series (5min)"][latestTime];
             return { price: parseFloat(latestData["4. close"]) };
         } else {
-            // If no data found for the symbol, log a more descriptive error
             console.error('No stock data found for symbol:', symbol);
             alert('Stock symbol not found. Please try again.');
             return null;
