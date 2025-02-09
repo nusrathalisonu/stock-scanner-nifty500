@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Scanner</title>
+    <title>Stock Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Top Gainers & Losers (Nifty 500)</h1>
-        <div id="stock-info">
-            <!-- Stock data will go here -->
+        <h1>Stock Tracker</h1>
+        <div class="search">
+            <input type="text" id="stock-symbol" placeholder="Enter Stock Symbol (e.g., AAPL)" />
+            <input type="number" id="entry-price" placeholder="Entry Price" />
+            <button id="add-stock-btn">Add to List</button>
         </div>
-        <div id="chart-container">
-            <h2>30-Minute Timeframe Chart</h2>
-            <canvas id="stock-chart"></canvas>
+
+        <div id="stock-list">
+            <h2>Your Stock List</h2>
+            <ul id="stocks"></ul>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="script.js"></script>
 </body>
 </html>
