@@ -1,4 +1,4 @@
-const apiKey = '0e478955c65f474b921b246cd95f1db9';  // Updated API key for Alpha Vantage
+const apiKey = '0e478955c65f474b921b246cd95f1db9'; // Twelve Data API key
 const addStockBtn = document.getElementById('add-stock-btn');
 const stockSymbolInput = document.getElementById('stock-symbol');
 const entryPriceInput = document.getElementById('entry-price');
@@ -16,8 +16,6 @@ addStockBtn.addEventListener('click', async () => {
             alert('For Indian stocks, please add ".BO" or ".NS" at the end of the stock symbol (e.g., RELIANCE.BO or INFY.NS).');
             return;
         }
-
-        console.log('Fetching data for:', symbol); // Debugging step
 
         const stockData = await getStockData(symbol);
         if (stockData) {
@@ -43,19 +41,19 @@ function isIndianStock(symbol) {
     return symbol.endsWith('.BO') || symbol.endsWith('.NS');
 }
 
-// Function to fetch stock data from Alpha Vantage
+// Function to fetch stock data from Twelve Data API
 async function getStockData(symbol) {
-    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${apiKey}`;
+    const url = `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=5min&apikey=${apiKey}`;
     try {
+        console.log('Fetching data from:', url); // Log the request URL for debugging
         const response = await fetch(url);
         const data = await response.json();
-        
-        console.log('API Response:', data); // Log the response for debugging
-        
-        if (data["Time Series (5min)"]) {
-            const latestTime = Object.keys(data["Time Series (5min)"])[0];
-            const latestData = data["Time Series (5min)"][latestTime];
-            return { price: parseFloat(latestData["4. close"]) };
+
+        console.log('API Response:', data); // Log the API response for debugging
+
+        if (data.values && data.values.length > 0) {
+            const latestData = data.values[0]; // Get the latest data point
+            return { price: parseFloat(latestData.close) };
         } else {
             console.error('No stock data found for symbol:', symbol);
             alert('Stock symbol not found. Please try again.');
