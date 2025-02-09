@@ -1,4 +1,4 @@
-const apiKey = 'C7PVP7K2IP2ZKGI3';  // Your API key for Alpha Vantage
+const apiKey = '0e478955c65f474b921b246cd95f1db9';  // Updated API key for Alpha Vantage
 const addStockBtn = document.getElementById('add-stock-btn');
 const stockSymbolInput = document.getElementById('stock-symbol');
 const entryPriceInput = document.getElementById('entry-price');
